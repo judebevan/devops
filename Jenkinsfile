@@ -1,5 +1,8 @@
 pipeline {
   agent any
+  environment {
+      KUBECONFIG = `/home/judebevan/.kube/config`
+  }
   stages {
     stage('HelloPrompt') {
       steps {
