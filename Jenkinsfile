@@ -1,8 +1,5 @@
 pipeline {
   agent any
-  environment {
-      KUBECONFIG = '/home/judebevan/.kube/config'
-  }
   stages {
     stage('HelloPrompt') {
       steps {
@@ -60,12 +57,15 @@ pipeline {
     stage('Deployment') {
       steps {
         script {
+          sh 'start kubectl --kubeconfig=${KUBECONFIG} apply -f deployment.yaml'
+          sh 'start kubectl --kubeconfig=${KUBECONFIG} apply -f service.yaml'
+        }
 
-                sh 'start kubectl --kubeconfig=${KUBECONFIG} apply -f deployment.yaml'
-                sh 'start kubectl --kubeconfig=${KUBECONFIG} apply -f service.yaml'
-            }
+      }
+    }
 
   }
+  environment {
+    KUBECONFIG = '/home/judebevan/.kube/config'
+  }
 }
-}
-}  
