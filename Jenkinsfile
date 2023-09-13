@@ -60,7 +60,7 @@ pipeline {
     stage('Deployment') {
       steps {
         script {
-          sh 'chown 1000:1000'
+          sh 'chown 1000:1000 /home/judebevan/.kube'
           // sh 'cp /home/judebevan/.kube/config /tmp/kubeconfig'
           // env.KUBECONFIG = '/tmp/kubeconfig'
           sh 'kubectl --kubeconfig=${KUBECONFIG} apply -f deployment.yaml'
