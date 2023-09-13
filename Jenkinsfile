@@ -56,7 +56,6 @@ pipeline {
 
     stage('Deployment') {
       steps {
-        sh 'kubectl config use-context minikube'
         sh 'kubectl apply -f deployment.yaml'
       }
     }
