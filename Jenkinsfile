@@ -61,7 +61,6 @@ pipeline {
       steps {
         script {
           sh 'start kubectl --kubeconfig=${KUBECONFIG} apply -f deployment.yaml'
-          sh 'start kubectl --kubeconfig=${KUBECONFIG} apply -f service.yaml'
         }
 
       }
