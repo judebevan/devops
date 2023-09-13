@@ -60,10 +60,10 @@ pipeline {
     stage('Deployment') {
       steps {
         script {
-          sh 'whoami'
+          // sh 'whoami'
           // sh 'cp /home/judebevan/.kube/config /tmp/kubeconfig'
           // env.KUBECONFIG = '/tmp/kubeconfig'
-          // sh 'kubectl --kubeconfig=${KUBECONFIG} apply -f deployment.yaml'
+          sh 'kubectl --kubeconfig=${KUBECONFIG} apply -f deployment.yaml'
         }
 
       }
