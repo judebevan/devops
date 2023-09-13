@@ -56,15 +56,18 @@ pipeline {
 
     stage('Deployment') {
       steps {
-        withCredentials([string(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
-  			  echo "KUBECONFIG: $KUBECONFIG"
-  				sh """
-  					kubectl apply -f deploymenyt.yaml
-  					kubectl apply -f service.yaml
-  				"""	
+        script {
+            try {
+                def kubeConfig = credentials('kubeconfig')
+                if (kubeConfig != null) {
+                    kubernetesDeploy(configs: "deployment.yaml", kubeconfigID: 'kubeconfig')
+                } else {
+                    error 'Kubernetes credentials not found or kubeconfig is null.'
+                }
+            } catch (Exception e) {
+                error "Error deploying to Kubernetes: ${e.message}"
+            }
         }
-      }
-    }
 
   }
 }
