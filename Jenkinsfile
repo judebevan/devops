@@ -1,5 +1,8 @@
 pipeline {
   agent any
+  environment {
+      KUBECONFIG = '/home/judebevan/.kube/config'
+  }
   stages {
     stage('HelloPrompt') {
       steps {
@@ -57,17 +60,10 @@ pipeline {
     stage('Deployment') {
       steps {
         script {
-            try {
-                def kubeConfig = credentials('kubeconfig')
-                if (kubeConfig != null) {
-                    kubernetesDeploy(configs: "deployment.yaml", kubeconfigID: 'kubeconfig')
-                } else {
-                    error 'Kubernetes credentials not found or kubeconfig is null.'
-                }
-            } catch (Exception e) {
-                error "Error deploying to Kubernetes: ${e.message}"
+
+                sh 'start kubectl --kubeconfig=${KUBECONFIG} apply -f deployment.yaml'
+                sh 'start kubectl --kubeconfig=${KUBECONFIG} apply -f service.yaml'
             }
-        }
 
   }
 }
