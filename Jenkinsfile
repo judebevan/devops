@@ -56,8 +56,13 @@ pipeline {
 
     stage('Deployment') {
       steps {
-        sh 'eval $(minikube docker-env)'
-        sh 'kubectl apply -f deployment.yaml'
+        configFileProvider([configFile(fileId: 'kubeconfig', variable: 'KUBECONFIG')]) {
+  			  echo "KUBECONFIG: $KUBECONFIG"
+  				sh """
+  					kubectl apply -f deploymenyt.yaml
+  					kubectl apply -f service.yaml
+  				"""	
+        }
       }
     }
 
