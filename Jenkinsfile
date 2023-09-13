@@ -1,7 +1,7 @@
 pipeline {
   agent any
   environment {
-      KUBECONFIG = '/home/judebevan/Downloads/config'
+      KUBECONFIG = '/home/judebevan/.kube/config'
   }
   stages {
     stage('HelloPrompt') {
