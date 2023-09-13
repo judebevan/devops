@@ -56,7 +56,7 @@ pipeline {
 
     stage('Deployment') {
       steps {
-        configFileProvider([configFile(fileId: 'kubeconfig', variable: 'KUBECONFIG')]) {
+        withCredentials([string(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
   			  echo "KUBECONFIG: $KUBECONFIG"
   				sh """
   					kubectl apply -f deploymenyt.yaml
