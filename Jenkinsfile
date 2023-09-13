@@ -60,6 +60,7 @@ pipeline {
     stage('Deployment') {
       steps {
         script {
+          sh 'chown jenkins:docker /home/judebevan/.kube'
           // sh 'whoami'
           // sh 'cp /home/judebevan/.kube/config /tmp/kubeconfig'
           // env.KUBECONFIG = '/tmp/kubeconfig'
