@@ -60,10 +60,10 @@ pipeline {
     stage('Deployment') {
       steps {
         script {
-          def workspaceDir = pwd()
+          sh 'chown 1000:1000'
           // sh 'cp /home/judebevan/.kube/config /tmp/kubeconfig'
           // env.KUBECONFIG = '/tmp/kubeconfig'
-          // sh 'kubectl --kubeconfig=${KUBECONFIG} apply -f deployment.yaml'
+          sh 'kubectl --kubeconfig=${KUBECONFIG} apply -f deployment.yaml'
         }
 
       }
