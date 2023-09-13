@@ -68,7 +68,5 @@ pipeline {
     }
 
   }
-  environment {
-    KUBECONFIG = '/home/judebevan/.kube/config'
-  }
+  
 }
